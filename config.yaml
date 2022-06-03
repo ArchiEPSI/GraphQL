@@ -1,0 +1,4 @@
+configurationset:
+  - configuration:
+      name: mysql_config
+      dsn: ui75z9z6kqf474bz:T0HGqdoJiUoLIlvYsXrQ@tcp(b4kpha6bzmyilgq8ox1h-mysql.services.clever-cloud.com)/b4kpha6bzmyilgq8ox1h

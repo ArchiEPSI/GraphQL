@@ -1,0 +1,143 @@
+type Adress {
+  city: String
+  country: String
+  cp: String
+  id: Int
+  street: String
+}
+
+type Category {
+  id: Int!
+  label: String!
+}
+
+type Command {
+  Createdate: DateTime!
+  gifs: String!
+  id: Int!
+  reference: String!
+  ttc: Int!
+  type: String!
+  validatedate: DateTime!
+}
+
+type Gif {
+  categories_id: String
+  certificate: String
+  creationDate: DateTime
+  description: String
+  id: Int
+  name: String
+  price: Int
+  url: String
+  visible: Int
+}
+
+type User {
+  adress_id: Int
+  basket_id: Int
+  email: String
+  firstname: String
+  gifs_id: String
+  id: Int
+  lastname: String
+  password: String
+  phone: String
+  transactions_id: String
+  username: String
+}
+
+type Query {
+  getAdressList: [Adress]
+    @dbquery(type: "mysql", table: "adress", configuration: "mysql_config")
+  """
+  This query is an example of how to simply paginate your responses.
+  """
+  getPaginatedAdressList(first: Int!, after: Int!): [Adress]
+    @dbquery(
+      type: "mysql"
+      query: """
+      select * from `adress` limit ? offset ?
+      """
+      configuration: "mysql_config"
+    )
+  """
+  In this example, a single query parameter is passed. If the request to the DB will
+  return at most one value you can remove the square brackets from the result.
+  """
+  getAdressById(id: Int!): [Adress]
+    @dbquery(
+      type: "mysql"
+      query: """
+      select * from `adress` where `id` = ?
+      """
+      configuration: "mysql_config"
+    )
+  """
+  In this example, two query parameters are passed. If the request to the DB will
+  return at most one value you can remove the square brackets from the result.
+  """
+  getAdressByIdAndCity(id: Int!, city: String!): [Adress]
+    @dbquery(
+      type: "mysql"
+      query: """
+      select * from `adress` where `id` = ? and `city` = ?
+      """
+      configuration: "mysql_config"
+    )
+  getCategoryList: [Category]
+    @dbquery(type: "mysql", table: "category", configuration: "mysql_config")
+  getCommandList: [Command]
+    @dbquery(type: "mysql", table: "command", configuration: "mysql_config")
+  getGifList: [Gif]
+    @dbquery(type: "mysql", table: "gif", configuration: "mysql_config")
+  getUserList: [User]
+    @dbquery(type: "mysql", table: "user", configuration: "mysql_config")
+}
+
+type Mutation {
+  """
+  In this mutation example you can see how to do a mutation to insert data in the database.
+  """
+  insertUser(
+    firstname: String!
+    transactions_id: String!
+    email: String!
+    gifs_id: String!
+    phone: String!
+    password: String!
+    basket_id: Int!
+    username: String!
+    lastname: String!
+    adress_id: Int!
+    id: Int!
+  ): User
+    @dbquery(
+      type: "mysql"
+      table: "user"
+      dml: INSERT
+      configuration: "mysql_config"
+    )
+  """
+  In this mutation example you can see how to do a mutation to delete data from the database.
+  """
+  deleteUser(
+    firstname: String!
+    transactions_id: String!
+    email: String!
+    gifs_id: String!
+    phone: String!
+    password: String!
+    basket_id: Int!
+    username: String!
+    lastname: String!
+    adress_id: Int!
+    id: Int!
+  ): User
+    @dbquery(
+      type: "mysql"
+      table: "user"
+      dml: DELETE
+      configuration: "mysql_config"
+    )
+}
