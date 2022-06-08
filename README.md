@@ -26,10 +26,10 @@ Pour taper sur l'API :
 
 Exemple de requête : 
 
-query {  
-  getAdressList {  
-    city  
-    street  
-    cp  
-  }  
-}  
+query {
+  getAdressList {
+    city
+    street
+    cp
+  }
+}
