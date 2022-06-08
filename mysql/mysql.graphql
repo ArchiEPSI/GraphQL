@@ -30,7 +30,7 @@ type Gif {
   name: String
   price: Int
   url: String
-  visible: Int
+  visible: Boolean
 }
 
 type User {
@@ -47,44 +47,12 @@ type User {
   username: String
 }
 
+"""
+These are some examples of queries generated from the schema. Feel free to modify them or add your own.
+"""
 type Query {
   getAdressList: [Adress]
     @dbquery(type: "mysql", table: "adress", configuration: "mysql_config")
-  """
-  This query is an example of how to simply paginate your responses.
-  """
-  getPaginatedAdressList(first: Int!, after: Int!): [Adress]
-    @dbquery(
-      type: "mysql"
-      query: """
-      select * from `adress` limit ? offset ?
-      """
-      configuration: "mysql_config"
-    )
-  """
-  In this example, a single query parameter is passed. If the request to the DB will
-  return at most one value you can remove the square brackets from the result.
-  """
-  getAdressById(id: Int!): [Adress]
-    @dbquery(
-      type: "mysql"
-      query: """
-      select * from `adress` where `id` = ?
-      """
-      configuration: "mysql_config"
-    )
-  """
-  In this example, two query parameters are passed. If the request to the DB will
-  return at most one value you can remove the square brackets from the result.
-  """
-  getAdressByIdAndCity(id: Int!, city: String!): [Adress]
-    @dbquery(
-      type: "mysql"
-      query: """
-      select * from `adress` where `id` = ? and `city` = ?
-      """
-      configuration: "mysql_config"
-    )
   getCategoryList: [Category]
     @dbquery(type: "mysql", table: "category", configuration: "mysql_config")
   getCommandList: [Command]
@@ -95,10 +63,122 @@ type Query {
     @dbquery(type: "mysql", table: "user", configuration: "mysql_config")
 }
 
+"""
+These are some examples of mutations generated from the schema. Feel free to modify them or add your own.
+"""
 type Mutation {
-  """
-  In this mutation example you can see how to do a mutation to insert data in the database.
-  """
+  insertAdress(
+    city: String!
+    country: String!
+    street: String!
+    cp: String!
+    id: Int!
+  ): Adress
+    @dbquery(
+      type: "mysql"
+      table: "adress"
+      dml: INSERT
+      configuration: "mysql_config"
+    )
+    
+  deleteAdress(
+    city: String!
+    country: String!
+    street: String!
+    cp: String!
+    id: Int!
+  ): Adress
+    @dbquery(
+      type: "mysql"
+      table: "adress"
+      dml: DELETE
+      configuration: "mysql_config"
+    )
+    
+  insertCategory(id: Int!, label: String!): Category
+    @dbquery(
+      type: "mysql"
+      table: "category"
+      dml: INSERT
+      configuration: "mysql_config"
+    )
+    
+  deleteCategory(id: Int!, label: String!): Category
+    @dbquery(
+      type: "mysql"
+      table: "category"
+      dml: DELETE
+      configuration: "mysql_config"
+    )
+    
+  insertCommand(
+    Createdate: DateTime!
+    type: String!
+    gifs: String!
+    reference: String!
+    id: Int!
+    validatedate: DateTime!
+    ttc: Int!
+  ): Command
+    @dbquery(
+      type: "mysql"
+      table: "command"
+      dml: INSERT
+      configuration: "mysql_config"
+    )
+    
+  deleteCommand(
+    Createdate: DateTime!
+    type: String!
+    gifs: String!
+    reference: String!
+    id: Int!
+    validatedate: DateTime!
+    ttc: Int!
+  ): Command
+    @dbquery(
+      type: "mysql"
+      table: "command"
+      dml: DELETE
+      configuration: "mysql_config"
+    )
+    
+  insertGif(
+    price: Int!
+    description: String!
+    certificate: String!
+    categories_id: String!
+    visible: Boolean!
+    id: Int!
+    url: String!
+    name: String!
+    creationDate: DateTime!
+  ): Gif
+    @dbquery(
+      type: "mysql"
+      table: "gif"
+      dml: INSERT
+      configuration: "mysql_config"
+    )
+    
+  deleteGif(
+    price: Int!
+    description: String!
+    certificate: String!
+    categories_id: String!
+    visible: Boolean!
+    id: Int!
+    url: String!
+    name: String!
+    creationDate: DateTime!
+  ): Gif
+    @dbquery(
+      type: "mysql"
+      table: "gif"
+      dml: DELETE
+      configuration: "mysql_config"
+    )
+    
   insertUser(
     firstname: String!
     transactions_id: String!
@@ -118,9 +198,7 @@ type Mutation {
       dml: INSERT
       configuration: "mysql_config"
     )
-  """
-  In this mutation example you can see how to do a mutation to delete data from the database.
-  """
+    
   deleteUser(
     firstname: String!
     transactions_id: String!
