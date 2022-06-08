@@ -3,7 +3,7 @@
 API GRAPHQL - Utilisation avec PostMan
 
 - URL (POST) : 
-https://moncton.stepzen.net/api/mygif/__graphql
+https://moncton.stepzen.net/api/mygif-gql/__graphql
 
 
 - Authorization : 
