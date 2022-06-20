@@ -41,7 +41,7 @@ type Gif {
 type User {
   id: Int
   uuid: String
-  adress: Address
+  Address: Address
   email: String
   firstname: String
   gifs: [Gif!]
@@ -56,7 +56,7 @@ type User {
 These are some examples of queries generated from the schema. Feel free to modify them or add your own.
 """
 type Query {
-  getAddressList: [Adress]
+  getAddressList: [Address]
     @dbquery(type: "mysql", table: "address", configuration: "mysql_config")
   getCategoryList: [Category]
     @dbquery(type: "mysql", table: "category", configuration: "mysql_config")
@@ -78,7 +78,7 @@ type Mutation {
     street: String!
     cp: String!
     id: Int!
-  ): Adress
+  ): Address
     @dbquery(
       type: "mysql"
       table: "address"
@@ -92,7 +92,7 @@ type Mutation {
     street: String!
     cp: String!
     id: Int!
-  ): Adress
+  ): Address
     @dbquery(
       type: "mysql"
       table: "address"
@@ -194,7 +194,7 @@ type Mutation {
     basket_id: Int!
     username: String!
     lastname: String!
-    adress_id: Int!
+    Address_id: Int!
     id: Int!
   ): User
     @dbquery(
@@ -214,7 +214,7 @@ type Mutation {
     basket_id: Int!
     username: String!
     lastname: String!
-    adress_id: Int!
+    Address_id: Int!
     id: Int!
   ): User
     @dbquery(
