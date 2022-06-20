@@ -1,4 +1,4 @@
-type Adress {
+type Address {
   city: String
   country: String
   cp: String
@@ -9,41 +9,46 @@ type Adress {
 type Category {
   id: Int!
   label: String!
+  gifs: [Gif!]
 }
 
 type Command {
   Createdate: DateTime!
-  gifs: String!
+  gifs: [Gif]
   id: Int!
   reference: String!
   ttc: Int!
   type: String!
   validatedate: DateTime!
+  state: String
+  user: User
 }
 
 type Gif {
-  categories_id: String
+  id: Int
+  name: String
+  categories_id: [Category!]
   certificate: String
   creationDate: DateTime
   description: String
-  id: Int
-  name: String
   price: Int
   url: String
   visible: Boolean
+  state: String
+  owner: User
 }
 
 type User {
-  adress_id: Int
-  basket_id: Int
+  id: Int
+  uuid: String
+  adress: Address
   email: String
   firstname: String
-  gifs_id: String
-  id: Int
+  gifs: [Gif!]
   lastname: String
   password: String
   phone: String
-  transactions_id: String
+  commands: [Command!]
   username: String
 }
 
@@ -51,8 +56,8 @@ type User {
 These are some examples of queries generated from the schema. Feel free to modify them or add your own.
 """
 type Query {
-  getAdressList: [Adress]
-    @dbquery(type: "mysql", table: "adress", configuration: "mysql_config")
+  getAddressList: [Adress]
+    @dbquery(type: "mysql", table: "address", configuration: "mysql_config")
   getCategoryList: [Category]
     @dbquery(type: "mysql", table: "category", configuration: "mysql_config")
   getCommandList: [Command]
@@ -67,7 +72,7 @@ type Query {
 These are some examples of mutations generated from the schema. Feel free to modify them or add your own.
 """
 type Mutation {
-  insertAdress(
+  insertAddress(
     city: String!
     country: String!
     street: String!
@@ -76,12 +81,12 @@ type Mutation {
   ): Adress
     @dbquery(
       type: "mysql"
-      table: "adress"
+      table: "address"
       dml: INSERT
       configuration: "mysql_config"
     )
     
-  deleteAdress(
+  deleteAddress(
     city: String!
     country: String!
     street: String!
@@ -90,7 +95,7 @@ type Mutation {
   ): Adress
     @dbquery(
       type: "mysql"
-      table: "adress"
+      table: "address"
       dml: DELETE
       configuration: "mysql_config"
     )
