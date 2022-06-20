@@ -2,34 +2,34 @@ type Address {
   city: String
   country: String
   cp: String
-  id: Int
+  address_id: Int
   street: String
 }
 
 type Category {
-  id: Int!
+  category_id: Int!
   label: String!
   gifs: [Gif!]
 }
 
 type Command {
-  Createdate: DateTime!
+  create_date: DateTime!
   gifs: [Gif]
-  id: Int!
+  command_id: Int!
   reference: String!
   ttc: Int!
   type: String!
-  validatedate: DateTime!
+  validate_date: DateTime!
   state: String
   user: User
 }
 
 type Gif {
-  id: Int
+  gif_id: Int
   name: String
   categories_id: [Category!]
   certificate: String
-  creationDate: DateTime
+  created_at: DateTime
   description: String
   price: Int
   url: String
